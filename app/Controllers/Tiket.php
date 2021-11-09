@@ -10,8 +10,13 @@ use CodeIgniter\Autoloader\Helper;
 
 class Tiket extends BaseController {
 
+    public function __construct()
+    {
+        $this->session = session();
+        $this->db = \Config\Database::connect();
+    }
     public function index() {
-
+        
         // show tiket lists
         $ticketModel = new Ticket_model();
         $data['tickets'] = $ticketModel->get();
@@ -54,11 +59,7 @@ class Tiket extends BaseController {
         $data['ticket'] = $ticketModel->where([
             'id' => $id
         ])->first();
-        
-        // $data['reply'] = $replyModel->where([
-        //     'id' => $id
-        // ])->getResult();
-        
+
         $query = $db->query("SELECT * FROM tickets_reply WHERE ticket_id = '$id'");
         $data['reply'] = $query->getResultArray();
         $data['solver_name'] = $query->getRow();
@@ -117,7 +118,7 @@ class Tiket extends BaseController {
 
         $to = $authorEmail;
         $subject = $solver_name . ' telah menambahkan komentar pada tiket dengan judul" ' . $title . ' "';
-        $message = $solver_name . '<p> telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti. Terima kasih</p>' ;
+        $message = $solver_name . 'telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti. Terima kasih</p>' ;
 
         if($ticketModel->update($id, $datanew)) {
             $replyModel->insert($datakomen);
@@ -161,11 +162,18 @@ class Tiket extends BaseController {
     }
 
     public function add() { // fungsi untuk menampilkan form add ticket
+        $nama = $this->session->get('nama');
+        $username = $this->session->get('username');
+        $query = $this->db->query("SELECT a.*,p.email as email FROM autentifikasi a, master_pegawai p WHERE username='$username' AND a.niplama=p.niplama");
+        $query2 = $this->db->query("SELECT * FROM master_pegawai WHERE id_org IN ('92610','92620','92630') AND id_satker='6400' ORDER BY id_org");
+        $data['name'] = $nama;
+        $data['auth'] = $query->getRowArray();
+        $data['orang'] = $query2->getResultArray();
         // layout
         echo view("layout/header");
         echo view("layout/navbar");
         echo view("layout/sidebar");
-        echo view("admin/ticket_add");
+        echo view("admin/ticket_add",$data);
         echo view("layout/footer");
     }
     
@@ -187,7 +195,8 @@ class Tiket extends BaseController {
         $solver_name = $this->request->getPost('solver_name'); 
         $reply_exp = $this->request->getPost('comment');
         $reply_date = date($format);
-
+        $username = session('username');
+        
         $datanew = [
             'title' => $title,
             'content' => $content,
@@ -196,7 +205,8 @@ class Tiket extends BaseController {
             'author_email' => $authorEmail,
             'created_at' => $created,
             'solver' => $solver_name,
-            'category_id' => $category
+            'category_id' => $category,
+            'username' => $username
         ];
         
         $datakomen = [

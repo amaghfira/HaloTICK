@@ -36,7 +36,7 @@
   </div>
   <div class="form-group">
     <label for="solver_name">Nama yang Memperbaiki</label>
-    <input type="text" class="form-control" id="solver_name" name="solver_name" readonly value="<?php echo $solver_name->name; ?>">
+    <input type="text" class="form-control" id="solver_name" name="solver_name" readonly value="<?php echo $ticket['solver']; ?>">
   </div>
 
 </form>

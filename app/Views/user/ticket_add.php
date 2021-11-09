@@ -20,11 +20,11 @@
   </div>
   <div class="form-group">
     <label for="author_name">Nama Pelapor</label>
-    <input type="text" class="form-control" id="author_name" name="author_name" value="" required>
+    <input type="text" class="form-control" id="author_name" name="author_name" value="<?= $nama; ?>" required>
   </div>
   <div class="form-group">
     <label for="author_email">Email Pelapor</label>
-    <input type="email" class="form-control" id="author_email" name="author_email" value="" required>
+    <input type="email" class="form-control" id="author_email" name="author_email" value="<?= $auth['email']; ?>" required>
   </div>
 
   <button type="submit" class="btn btn-md btn-primary">Add Ticket</button>

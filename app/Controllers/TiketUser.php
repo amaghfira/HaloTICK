@@ -9,7 +9,11 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Autoloader\Helper;
 
 class TiketUser extends User {
-
+    public function __construct()
+    {
+        $this->session = session();
+        $this->db = \Config\Database::connect();
+    }
     public function index() {
         // get session data 
         $username = $_SESSION['username'];
@@ -66,6 +70,7 @@ class TiketUser extends User {
         
         $query = $db->query("SELECT * FROM tickets_reply WHERE ticket_id = '$id'");
         $data['reply'] = $query->getResultArray();
+
         $data['solver_name'] = $query->getRow();
 
         // tampilkan 404 error jk data tidak ditemukan 
@@ -121,7 +126,7 @@ class TiketUser extends User {
         ];
 
         
-        $to = ['aulia.maghfira15@gmail.com','aulia.maghfira@bps.go.id','maghfira1197@gmail.com'];
+        $to = ['aulia.maghfira15@gmail.com'];
         $subject = $authorName . ' telah menambahkan komentar';
         $message = $authorName . '<p> telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti.</p>' ;
 
@@ -165,11 +170,16 @@ class TiketUser extends User {
     }
 
     public function add() { // fungsi untuk menampilkan form add ticket
+        $nama = $this->session->get('nama');
+        $username = $this->session->get('username');
+        $query = $this->db->query("SELECT a.*,p.email as email FROM autentifikasi a, master_pegawai p WHERE username='$username' AND a.niplama=p.niplama");
+        $data['nama'] = $nama;
+        $data['auth'] = $query->getRowArray();
         // layout
         echo view("layout/header");
         echo view("layout/navbar");
         echo view("layout/sidebar");
-        echo view("user/ticket_add");
+        echo view("user/ticket_add", $data);
         echo view("layout/footer");
     }
     
@@ -243,7 +253,7 @@ class TiketUser extends User {
             session()->setFlashdata('alert-class','alert-success');
 
             // kirim email on submit
-            $to = ['aulia.maghfira15@gmail.com','aulia.maghfira@bps.go.id','maghfira1197@gmail.com'];
+            $to = ['aulia.maghfira15@gmail.com'];
             $subject = 'Permintaan Tiket Baru';
             $message = '
             <p>Hai, Kamu mendapatkan 1 tiket baru.</p>' . 

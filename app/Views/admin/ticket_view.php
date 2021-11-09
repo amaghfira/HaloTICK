@@ -1,3 +1,4 @@
+
 <form>
   <div class="form-group">
     <label for="title">Judul</label>
@@ -38,11 +39,7 @@
   </div>
   <div class="form-group">
     <label for="solver_name">Nama yang Memperbaiki</label>
-    <input type="text" class="form-control" id="solver_name" name="solver_name" readonly value="<?php if ($solver_name == '') {
-                                                                                                        echo $solver_name->solver;
-                                                                                                      } else {
-                                                                                                        echo '';    
-                                                                                                      } ?>">
+    <input type="text" class="form-control" id="solver_name" name="solver_name" readonly value="<?= $ticket['solver']; ?>">
   </div>
 
 </form>

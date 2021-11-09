@@ -1,3 +1,7 @@
+
+<div class="row">
+<h5>Daftar Tiket</h5>
+</div>
 <?php 
 // Display Response
 if(session()->has('pesan')){
