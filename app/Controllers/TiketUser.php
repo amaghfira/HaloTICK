@@ -126,7 +126,7 @@ class TiketUser extends User {
         ];
 
         
-        $to = ['aulia.maghfira15@gmail.com'];
+        $to = ['syah@bps.go.id','aulia.maghfira@bps.go.id','khairil.anwar@bps.go.id','metha@bps.go.id','haidir.magribi@bps.go.id'];
         $subject = $authorName . ' telah menambahkan komentar';
         $message = $authorName . '<p> telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti.</p>' ;
 
@@ -253,11 +253,11 @@ class TiketUser extends User {
             session()->setFlashdata('alert-class','alert-success');
 
             // kirim email on submit
-            $to = ['aulia.maghfira15@gmail.com'];
+            $to = ['syah@bps.go.id','aulia.maghfira@bps.go.id','khairil.anwar@bps.go.id','metha@bps.go.id','haidir.magribi@bps.go.id'];
             $subject = 'Permintaan Tiket Baru';
             $message = '
             <p>Hai, Kamu mendapatkan 1 tiket baru.</p>' . 
-            '<p>Pemohon: </p>' . $authorName . 
+            '<p>Pemohon: ' . $authorName . '</p>' .
             '<p>Permasalahan: </p>' . $title . 
             '<p>Selengkapnya kunjungi <a>' . base_url() . '</p>';
 
