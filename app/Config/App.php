@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost/siyanti/';
+    public $baseURL = 'http://localhost/menanti/';
 
     /**
      * --------------------------------------------------------------------------
@@ -174,7 +174,8 @@ class App extends BaseConfig
      *
      * @var int
      */
-    public $sessionExpiration = 7200;
+    // public $sessionExpiration = 7200;
+    public $sessionExpiration = 86400;
 
     /**
      * --------------------------------------------------------------------------

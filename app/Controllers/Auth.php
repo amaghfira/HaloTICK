@@ -23,7 +23,7 @@ class Auth extends BaseController {
     }
 
     public function valid_login() {
-        $db = \Config\Database::connect();
+        $db = \Config\Database::connect('lk');
         $session = session();
         // ambil data dari form 
         // $data = $this->request->getPost();
