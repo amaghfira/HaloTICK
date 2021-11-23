@@ -27,6 +27,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="<?= base_url('plugins/summernote/summernote-bs4.min.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('dist/css/mystyle.css'); ?>">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <!-- untuk form login -->
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
