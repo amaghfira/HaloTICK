@@ -1,4 +1,4 @@
-<form method="post" action="<?= base_url('tiketuser/add_new/'); ?>">
+<form method="post" action="<?= base_url('TiketUser/add_new/'); ?>">
   <div class="form-group">
     <label for="title">Judul Masalah</label>
     <input type="text" class="form-control" id="title" name="title" value="" required>
@@ -6,6 +6,10 @@
   <div class="form-group">
     <label for="content">Deskripsi Masalah</label>
     <textarea class="form-control" id="content" name="content" rows="3" value="" required></textarea>
+  </div>
+  <div class="form-group">
+    <label for="bmn">Nomor BMN</label>
+    <input type="text" class="form-control" id="bmn" name="bmn" value="" required>
   </div>
   <div class="form-group">
     <label for="category">Kategori</label>

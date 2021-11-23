@@ -8,6 +8,10 @@
     <textarea class="form-control" id="content" name="content" rows="3" value="" required></textarea>
   </div>
   <div class="form-group">
+    <label for="bmn">Nomor BMN</label>
+    <input type="text" class="form-control" id="bmn" name="bmn" value="" required>
+  </div>
+  <div class="form-group">
     <label for="category">Kategori</label>
     <select class="form-control" id="category" name="category" required>
       <option value="1">Tablet</option>
@@ -16,6 +20,7 @@
       <option value="4">Printer</option>
       <option value="5">Scanner</option>
       <option value="6">UPS</option>
+      <option value="7">Lainnya</option>
     </select>
   </div>
   <div class="form-group">
