@@ -41,6 +41,21 @@ $routes->group('', ['filter' => 'authFilter'], function($routes) {
     $routes->get('/ticket/edit','Tiket::edit/$1');
     $routes->get('/user/home', 'Home::index_user');
     $routes->get('/contact','Contact::index');
+
+    $routes->get('/status','Status::index');
+    $routes->get('/status/edit', 'Status::edit');
+    $routes->get('/status/delete', 'Status::delete');
+    $routes->get('/status/add', 'Status::add');
+
+    $routes->get('/category','Category::index');
+    $routes->get('/category/edit', 'Category::edit');
+    $routes->get('/category/delete', 'Category::delete');
+    $routes->get('/category/add', 'Category::add');
+
+    $routes->get('/priority','Priority::index');
+    $routes->get('/priority/edit', 'Priority::edit');
+    $routes->get('/priority/delete', 'Priority::delete');
+    $routes->get('/priority/add', 'Priority::add');
 });
 
 
