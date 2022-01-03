@@ -1,16 +1,17 @@
-# Petunjuk Penggunaan SIYANTI
+# About MENANTI
 
-## Sekilas SIYANTI 
-Sistem pelayanan TI digunakan untuk melaporkan kerusakan kerusakan terhadap BMN. 
+## Description 
+MENANTI (Manajemen Pelayanan TI) is a management ticketing system that offers bunch of features. You can open new tickets, assign people, edit tickets, etc. It is built with CodeIgniter 4 framework. 
 
-## Fitur 
-1. Pelaporan kerusakan barang 
-2. Multiuser : admin dan client 
-3. Email 
-4. Tabel rekap pelaporan kerusakan 
-5. Rekap masing2 orang yang memperbaiki (coming soon)
+## Features
+1. Open ticket 
+2. Tickets list
+3. Multi user (admin and client)
+4. Email (send email on edit or open new ticket)
+5. Damage reporting recapitulation table 
+6. Recapitulation based on people (coming soon)
 
-## Server Requirements
+## Server Requirements (CodeIgniter 4)
 
 PHP version 7.3 or higher is required, with the following extensions installed:
 
