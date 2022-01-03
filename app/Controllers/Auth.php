@@ -24,38 +24,44 @@ class Auth extends BaseController {
 
     public function valid_login() {
         $db = \Config\Database::connect('lk');
-        $session = session();
         // ambil data dari form 
-        // $data = $this->request->getPost();
+        
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
         // cocokkan username post dan db 
         $query = $db->query("SELECT a.*, p.nama, p.id_org  FROM autentifikasi a, master_pegawai p WHERE a.niplama = p.niplama AND a.username = '$username'");
-        $user = $query->getRow();
-
-        if ($user->password != md5($password)) {
-            session()->setFlashData('password','Password Salah');
+        if ($query->getNumRows() == 0) { //jk user tdk ditemukan
+            $this->session->setFlashdata('login_dulu','Pengguna tidak ditemukan');
+            $this->session->setFlashdata('alert-class','alert-danger');
             return redirect()->to('auth/login');
-        } else if ($user->password != md5($password) && $user->id_org == '92600' || $user->id_org == '92610' || $user->id_org == '92620') { //cek id _org as admin
-            $sessLogin = [
-                'isLogin' => true,
-                'username' => $user->username,
-                'role' => $user->id_org,
-                'nama' => $user->nama
-            ];
-            $this->session->set($sessLogin);
-            return redirect('admin/home');
-        } else {
-            $sessLogin = [
-                'isLogin' => true,
-                'username' => $user->username,
-                'role' => $user->id_org,
-                'nama' => $user->nama
-            ];
-            $this->session->set($sessLogin);
-            return redirect('user/home');
+        } else { //jk user ditemukan 
+            $user = $query->getRow();
+            if ($user->password != md5($password)) {
+                $this->session->setFlashData('login_dulu','Password Salah');
+                $this->session->setFlashdata('alert-class','alert-danger');
+                return redirect()->to('auth/login');
+            } else if ($user->password != md5($password) && $user->id_org == '92600' || $user->id_org == '92610' || $user->id_org == '92620') { //cek id _org as admin
+                $sessLogin = [
+                    'isLogin' => true,
+                    'username' => $user->username,
+                    'role' => $user->id_org,
+                    'nama' => $user->nama
+                ];
+                $this->session->set($sessLogin);
+                return redirect('admin/home');
+            } else {
+                $sessLogin = [
+                    'isLogin' => true,
+                    'username' => $user->username,
+                    'role' => $user->id_org,
+                    'nama' => $user->nama
+                ];
+                $this->session->set($sessLogin);
+                return redirect('user/home');
+            }
         }
+        
     }
     public function logout() {
         //hancurkan session 

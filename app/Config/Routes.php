@@ -35,16 +35,11 @@ $routes->get('/', 'Auth::login');
 // $routes->post('/login', 'Login::process');
 // $routes->get('/logout', 'Login::logout');
 $routes->group('', ['filter' => 'authFilter'], function($routes) {
-    $routes->get('/admin/home', 'HomeAdmin::index');
+    $routes->get('/admin/home', 'Home::index');
     $routes->get('/ticket','Tiket::index');
     $routes->get('/ticket/show','Tiket::show/$1');
     $routes->get('/ticket/edit','Tiket::edit/$1');
-
-    $routes->get('/user/home', 'HomeUser::index');
-    $routes->get('/user/ticket','TiketUser::index');
-    $routes->get('/user/ticket/show','TiketUser::show/$1');
-    $routes->get('/user/ticket/edit','TiketUser::edit/$1');
-    $routes->get('/user/ticket/add','TiketUser::add');
+    $routes->get('/user/home', 'Home::index_user');
     $routes->get('/contact','Contact::index');
 });
 

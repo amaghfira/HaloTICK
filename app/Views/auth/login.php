@@ -20,23 +20,12 @@
 	</style>
 	</head>
 	<body>
-    <?php 
-        $session = session();
-        $login = $session->getFlashdata('login');
-        $username = $session->getFlashdata('username');
-        $password = $session->getFlashdata('password');
-    ?>
-    <?php if($username){ ?>
-        <p style="color:red"><?php echo $username?></p>
-    <?php } ?>
-    
-    <?php if($password){ ?>
-        <p style="color:red"><?php echo $password?></p>
-    <?php } ?>
-    
-    <?php if($login){ ?>
-        <p style="color:green"><?php echo $login?></p>
-    <?php } ?>
+    <!-- PESAN -->
+	<?php if (session()->has('login_dulu')) : ?>
+        <div class="alert <?=session()->getFlashdata('alert-class') ?>">
+            <?= session()->getFlashdata('login_dulu') ?>
+        </div>
+    <?php endif; ?>
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">

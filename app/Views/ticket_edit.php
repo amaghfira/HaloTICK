@@ -17,11 +17,16 @@
   </div>
   <div class="form-group">
     <label for="status">Status Tiket</label>
-    <select class="form-control" id="status" name="status" value="<?= $ticket['status_id']; ?>">
-      <option value="1">Open</option>
-      <option value="2">Closed</option>
-      <option value="3">Pending</option>
-    </select>
+    <?php if (in_array($_SESSION['role'],$admin)) : ?>
+      <select class="form-control" id="status" name="status" value="<?= $ticket['status_id']; ?>">
+        <option value="1">Open</option>
+        <option value="2">Closed</option>
+        <option value="3">Pending</option>
+      </select>
+    <?php endif;  ?>
+    <?php if (!in_array($_SESSION['role'],$admin)) : ?>
+      <input type="text" class="form-control" name="status" id="status" value="<?= $ticket['status_id'] ?>" readonly>
+    <?php endif; ?>
   </div>
   <div class="form-group">
     <label for="author_name">Nama Pelapor</label>
@@ -35,18 +40,24 @@
     <label for="comment">Komentar</label>
     <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Masukkan komentar atau solusi permasalahan disini"></textarea>
   </div>
-  <div class="form-group">
-    <label for="solver_name">Nama yang Memperbaiki</label>
-    <!-- <input type="text" class="form-control" id="solver_name" name="solver_name" placeholder="Masukkan nama yang memperbaiki disini" value="<?= $ticket['solver']; ?>"> -->
-    <select class="form-control" id="solver_name" name="solver_name" required>
-      <?php if ($orang) : ?>
-        <?php foreach($orang as $org): ?>
-          <option value="<?= $org['nama'] ?>"><?= $org['nama']; ?></option>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </select>
-  </div>
-
+  <?php if (in_array($_SESSION['role'],$admin)) : ?>
+    <div class="form-group">
+      <label for="solver_name">Nama yang Memperbaiki</label>
+      <select class="form-control" id="solver_name" name="solver_name" required>
+        <?php if ($orang) : ?>
+          <?php foreach($orang as $org): ?>
+            <option value="<?= $org['nama'] ?>"><?= $org['nama']; ?></option>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </select>
+    </div>
+  <?php endif; ?>
+  <?php if (!in_array($_SESSION['role'],$admin)) : ?>
+    <div class="form-group">
+      <label for="solver_name">Nama yang Memperbaiki</label>
+      <input type="text" class="form-control" id="solver_name" name="solver_name" placeholder="Masukkan nama yang memperbaiki disini" value="<?= $ticket['solver']; ?>" readonly>
+    </div>
+  <?php endif; ?>
   <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
 
 </form>

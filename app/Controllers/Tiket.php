@@ -14,57 +14,42 @@ class Tiket extends BaseController {
     {
         $this->session = session();
         $this->db = \Config\Database::connect();
+        $this->ticketModel = new Ticket_model();
+        $this->replyModel = new Reply_model();
+        $this->admin = ['92610','92620','92630'];
     }
     public function index() {
-        
-        // show tiket lists
-
-        $query = $this->db->query("SELECT t.*, s.name as nama_status FROM tickets t, statuses s WHERE t.status_id=s.id");
-        $data['tickets'] = $query->getResultArray();
-        // layout
-        echo view("layout/header");
-        echo view("layout/navbar");
-        echo view("layout/sidebar");
-        echo view("admin/ticket_lists",$data);
-        echo view("layout/footer");
-    }
-
-    public function show($id) { //show tiket sebelum di edit 
-
-        $ticketModel = new Ticket_model();
-        $data['ticket'] = $ticketModel->where([
-            'id' => $id
-        ])->first();
-        
-        $query2 = $this->db->query("SELECT * FROM master_pegawai WHERE id_org IN ('92610','92620','92630') AND id_satker='6400' ORDER BY id_org");
-        $data['orang'] = $query2->getResultArray();
-
-        // tampilkan 404 error jk data tidak ditemukan 
-        if (!$data['ticket']) {
-            throw PageNotFoundException::forPageNotFound();
+        $admin = ['92610','92620','92630'];
+        if (!in_array($this->session->role,$admin)) { //user    
+            $username = $this->session->username;
+            $query = $this->db->query("SELECT t.*, s.name as nama_status FROM tickets t, statuses s WHERE t.status_id=s.id AND t.username = '$username'");
+        } else { //admin
+            $query = $this->db->query("SELECT t.*, s.name as nama_status FROM tickets t, statuses s WHERE t.status_id=s.id");
+            
         }
 
+        // show tiket lists
+        $data['tickets'] = $query->getResultArray();
+
         // layout
         echo view("layout/header");
         echo view("layout/navbar");
         echo view("layout/sidebar");
-        echo view("admin/ticket_edit",$data);
+        echo view("ticket_lists",$data);
         echo view("layout/footer");
     }
 
     public function view($id) { //menampilkan view masing2 tiket (tp cuma view aja gabisa di edit)
-        $db = \Config\Database::connect();
-
         $ticketModel = new Ticket_model();
         $replyModel = new Reply_model();
 
         // $data['ticket'] = $ticketModel->where([
         //     'id' => $id
         // ])->first();
-
-        $tiketquery = $db->query("SELECT t.*, s.name as nama_status FROM `tickets` t, statuses s WHERE t.id = '$id' AND t.status_id = s.id ");
+            
+        $tiketquery = $this->db->query("SELECT t.*, s.name as nama_status FROM `tickets` t, statuses s WHERE t.id = '$id' AND t.status_id = s.id ");
         $data['ticket'] = $tiketquery->getRowArray();
-        $query = $db->query("SELECT * FROM tickets_reply WHERE ticket_id = '$id'");
+        $query = $this->db->query("SELECT * FROM tickets_reply WHERE ticket_id = '$id'");
         $data['reply'] = $query->getResultArray();
         $data['solver_name'] = $query->getRow();
 
@@ -77,19 +62,35 @@ class Tiket extends BaseController {
         echo view("layout/header");
         echo view("layout/navbar");
         echo view("layout/sidebar");
-        echo view("admin/ticket_view",$data);
+        echo view("ticket_view",$data);
         echo view("layout/footer");
     }
 
-    public function edit($id) { //fungsi untuk edit tiket 
+    public function show($id) { //show tiket sebelum di edit 
+        $query2 = $this->db->query("SELECT * FROM master_pegawai WHERE id_org IN ('92610','92620','92630') AND id_satker='6400' ORDER BY id_org");
+        $data['orang'] = $query2->getResultArray();
+        $data['ticket'] = $this->ticketModel->where([
+            'id' => $id
+        ])->first();
+        $data['admin'] = $this->admin;
+        // tampilkan 404 error jk data tidak ditemukan 
+        if (!$data['ticket']) {
+            throw PageNotFoundException::forPageNotFound();
+        }
 
+        // layout
+        echo view("layout/header");
+        echo view("layout/navbar");
+        echo view("layout/sidebar");
+        echo view("ticket_edit",$data);
+        echo view("layout/footer");
+    }
+
+    public function edit($id) { //fungsi untuk edit tiket dan kirim email
         helper('date'); 
         date_default_timezone_set('Asia/Singapore');
         $format = "Y-m-d h:i:s";
-
-        $ticketModel = new Ticket_model();
-        $replyModel = new Reply_model();
-        $data['ticket'] = $ticketModel->where('id', $id)->first();
+        $data['ticket'] = $this->ticketModel->where('id', $id)->first();
 
         $title = $this->request->getPost('title'); //get data dari form edit
         $content = $this->request->getPost('content'); 
@@ -120,17 +121,27 @@ class Tiket extends BaseController {
             'name' => $solver_name,
             'reply_date' => $reply_date
         ];
+        
 
-        $to = $authorEmail;
-        $subject = $solver_name . ' telah menambahkan komentar pada tiket dengan judul" ' . $title . ' "';
-        $message = $solver_name . ' telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti. Terima kasih</p>' ;
-
-        if($ticketModel->update($id, $datanew)) {
+        // SETTING EMAIL
+        // email untuk akun admin
+        if (in_array($_SESSION['role'],$this->admin)) {
+            $to = $authorEmail;
+            $subject = $solver_name . ' telah menambahkan komentar pada tiket dengan judul" ' . $title . ' "';
+            $message = $solver_name . ' telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti. Terima kasih</p>' ;    
+        } else {
+            // email untuk akun user 
+            $to = ['aulia.maghfira15@gmail.com']; //ini alamat email dari admin 
+            $subject = $authorName . ' telah menambahkan komentar';
+            $message = $authorName . '<p> telah menambahkan komentar. Cek di https://bpskaltim.com/siyanti.</p>' ;
+        }
+        
+        if($this->ticketModel->update($id, $datanew)) {
             if ($reply_exp == null) {
                 session()->setFlashdata('pesan', 'Tiket berhasil di update');
                 session()->setFlashdata('alert-class','alert-success');
             } else {
-                $replyModel->insert($datakomen);
+                $this->replyModel->insert($datakomen);
                 session()->setFlashdata('pesan', 'Tiket berhasil di update');
                 session()->setFlashdata('alert-class','alert-success');
     
@@ -179,11 +190,12 @@ class Tiket extends BaseController {
         $data['name'] = $nama;
         $data['auth'] = $query->getRowArray();
         $data['orang'] = $query2->getResultArray();
+        $data['admin'] = $this->admin;
         // layout
         echo view("layout/header");
         echo view("layout/navbar");
         echo view("layout/sidebar");
-        echo view("admin/ticket_add",$data);
+        echo view("ticket_add",$data);
         echo view("layout/footer");
     }
     
