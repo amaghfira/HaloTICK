@@ -14,15 +14,14 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-      <?php if ($_SESSION['role'] == '92600' || $_SESSION['role'] == '92610' || $_SESSION['role'] == '92620' || $_SESSION['role'] == '92630') {   ?>
-        <a href="<?= base_url(); ?>/admin/home" class="nav-link">Home</a>
-      <?php } else { ?>
-        <a href="<?= base_url(); ?>/user/home" class="nav-link">Home</a>
-      <?php } ?>
+        <a href="<?= base_url(); ?>/landing" class="nav-link">Home</a>
       </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
+      <li class="nav-item d-none d-sm-inline-block">
         <a href="<?= base_url(); ?>/contact" class="nav-link">Contact</a>
-      </li> -->
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<?= base_url(); ?>/faq" class="nav-link">FAQ</a>
+      </li>
     </ul>
 
 

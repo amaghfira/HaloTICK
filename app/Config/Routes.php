@@ -56,6 +56,9 @@ $routes->group('', ['filter' => 'authFilter'], function($routes) {
     $routes->get('/priority/edit', 'Priority::edit');
     $routes->get('/priority/delete', 'Priority::delete');
     $routes->get('/priority/add', 'Priority::add');
+
+    $routes->get('/contact','Contact::index');
+    $routes->get('/faq','Faq::index');
 });
 
 

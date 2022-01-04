@@ -27,7 +27,7 @@
                         <?php else : ?>
                             <a href="<?= base_url(); ?>/user/home" class="nav-link">
                             <?php endif; ?>
-                            <i class="nav-icon fas fa-th"></i>
+                            <i class="nav-icon fa fa-tachometer"></i>
                             <p>
                                 Dashboard
                                 <span class="right badge badge-danger">New</span>
@@ -36,7 +36,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url() ?>/tiket/index" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <i class="nav-icon fa fa-list-ul"></i>
                         <p>
                             Tickets List
                         </p>
@@ -44,15 +44,16 @@
                 </li>
                 <li class="nav-item">
                     <a href="<?= base_url() ?>/tiket/add" class="nav-link">
-                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <i class="nav-icon fa fa-pencil-square-o"></i>
                         <p>
                             Create Ticket
                         </p>
                     </a>
                 </li>
+                <?php if ($_SESSION['role'] == '92600' || $_SESSION['role'] == '92610' || $_SESSION['role'] == '92620' || $_SESSION['role'] == '92630') : ?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Website Management
                             <i class="right fas fa-angle-left"></i>
@@ -61,30 +62,31 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="pages/charts/chartjs.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa fa-users nav-icon"></i>
                                 <p>Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url(); ?>/status" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa fa-commenting nav-icon"></i>
                                 <p>Statuses</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url(); ?>/category" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa fa-list-alt nav-icon"></i>
                                 <p>Categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= base_url(); ?>/priority" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-tasks nav-icon"></i>
                                 <p>Priorities</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a href="<?= base_url(); ?>/auth/logout" class="nav-link">
                         <i class="nav-icon fas fa-fw fa-sign-out-alt">
