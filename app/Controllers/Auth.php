@@ -8,8 +8,9 @@ class Auth extends BaseController {
 
     public function __construct()
     {
-        // membuat user model utk koneksi ke db 
+        // load db 
         $this->userModel = new User_model();
+        $this->db = \Config\Database::connect() ; 
 
         // load validation 
         $this->validation =  \Config\Services::validation();
@@ -23,42 +24,45 @@ class Auth extends BaseController {
     }
 
     public function valid_login() {
-        $db = \Config\Database::connect('lk');
         // ambil data dari form 
         
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
         // cocokkan username post dan db 
-        $query = $db->query("SELECT a.*, p.nama, p.id_org  FROM autentifikasi a, master_pegawai p WHERE a.niplama = p.niplama AND a.username = '$username'");
-        if ($query->getNumRows() == 0) { //jk user tdk ditemukan
-            $this->session->setFlashdata('login_dulu','Pengguna tidak ditemukan');
+        $query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
+        if ($query->getNumRows() == 0) { //if user not found
+            $this->session->setFlashdata('login_dulu','User Not Found!');
             $this->session->setFlashdata('alert-class','alert-danger');
             return redirect()->to('auth/login');
-        } else { //jk user ditemukan 
+        } else { //if user found
             $user = $query->getRow();
             if ($user->password != md5($password)) {
-                $this->session->setFlashData('login_dulu','Password Salah');
+                $this->session->setFlashData('login_dulu','Wrong Password!');
                 $this->session->setFlashdata('alert-class','alert-danger');
                 return redirect()->to('auth/login');
-            } else if ($user->password != md5($password) && $user->id_org == '92600' || $user->id_org == '92610' || $user->id_org == '92620') { //cek id _org as admin
+            } else if ($user->password == md5($password) && $user->level_id == 1) { //check if user is admin
                 $sessLogin = [
                     'isLogin' => true,
                     'username' => $user->username,
-                    'role' => $user->id_org,
-                    'nama' => $user->nama
+                    'role' => $user->level_id,
+                    'nama' => $user->firstname . ' ' . $user->lastname
                 ];
                 $this->session->set($sessLogin);
                 return redirect('admin/home');
-            } else {
+            } else if ($user->password == md5($password) && $user->level_id != 1){
                 $sessLogin = [
                     'isLogin' => true,
                     'username' => $user->username,
-                    'role' => $user->id_org,
-                    'nama' => $user->nama
+                    'role' => $user->level_id,
+                    'nama' => $user->firstname . ' ' . $user->lastname
                 ];
                 $this->session->set($sessLogin);
                 return redirect('user/home');
+            } else {
+                $this->session->setFlashData('login_dulu','User Not Found!');
+                $this->session->setFlashdata('alert-class','alert-danger');
+                return redirect()->to('auth/login');
             }
         }
         
@@ -70,5 +74,3 @@ class Auth extends BaseController {
         return redirect()->to('/auth/login');
     }
 }
-
-?>

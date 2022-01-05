@@ -22,7 +22,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                 <li class="nav-item">
-                    <?php if ($_SESSION['role'] == '92600' || $_SESSION['role'] == '92610' || $_SESSION['role'] == '92620' || $_SESSION['role'] == '92630') : ?>
+                    <?php if ($_SESSION['role'] == 1) : ?>
                         <a href="<?= base_url(); ?>/admin/home" class="nav-link">
                         <?php else : ?>
                             <a href="<?= base_url(); ?>/user/home" class="nav-link">
@@ -50,7 +50,7 @@
                         </p>
                     </a>
                 </li>
-                <?php if ($_SESSION['role'] == '92600' || $_SESSION['role'] == '92610' || $_SESSION['role'] == '92620' || $_SESSION['role'] == '92630') : ?>
+                <?php if ($_SESSION['role'] == 1) : ?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-cogs"></i>

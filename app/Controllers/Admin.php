@@ -15,7 +15,7 @@ class Admin extends BaseController {
         }
 
         // cek user role dari session 
-        if ($this->session->get('role') != '92600' || $this->session->get('role') != '92610' || $this->session->get('role') != '92620' || $this->session->get('role') != '92630') {
+        if ($this->session->get('role') != 1) {
             return redirect()->to('/user');
         }
 

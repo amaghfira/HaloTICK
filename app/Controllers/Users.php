@@ -32,7 +32,7 @@ class Users extends BaseController
         $firstname = $this->request->getPost('firstname');
         $lastname = $this->request->getPost('lastname');
         $email = $this->request->getPost('email');
-        $password = '123456';
+        $password = md5('123456');
         $levelid = 3;
 
         $data = [

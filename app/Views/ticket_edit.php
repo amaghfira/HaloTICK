@@ -13,10 +13,6 @@
         <textarea class="form-control" id="content" name="content" rows="3" value="<?= $ticket['content']; ?>"><?= $ticket['content']; ?></textarea>
       </div>
       <div class="form-group">
-        <label for="bmn">Nomor BMN</label>
-        <input type="text" class="form-control" id="bmn" name="bmn" value="<?= $ticket['no_bmn']; ?>">
-      </div>
-      <div class="form-group">
         <label for="created">Waktu Tiket Dibuat</label>
         <input type="datetime" class="form-control" id="created" name="created" value="<?= $ticket['created_at']; ?>" readonly>
       </div>
@@ -51,7 +47,7 @@
           <select class="form-control" id="solver_name" name="solver_name" required>
             <?php if ($orang) : ?>
               <?php foreach ($orang as $org) : ?>
-                <option value="<?= $org['nama'] ?>"><?= $org['nama']; ?></option>
+                <option value="<?= $org['firstname'] . ' ' . $org['lastname']; ?>"><?= $org['firstname'] . ' ' . $org['lastname']; ?></option>
               <?php endforeach; ?>
             <?php endif; ?>
           </select>

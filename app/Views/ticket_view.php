@@ -13,10 +13,6 @@
         <td><?= $ticket['content']; ?></td>
       </tr>
       <tr>
-        <th>Nomor BMN</th>
-        <td><?= $ticket['no_bmn']; ?></td>
-      </tr>
-      <tr>
         <th>Waktu tiket dibuat</th>
         <td><?= $ticket['created_at']; ?></td>
       </tr>

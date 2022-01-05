@@ -7,10 +7,7 @@
 
 <div class="contain">
     <p>
-        ipds6400@bps.go.id
-    </p>
-    <p>
-        BPS Provinsi Kalimantan Timur 
+        Email: admin@dummy.com
     </p>
 </div>
 
