@@ -1,17 +1,17 @@
-# About MENANTI
+# About HaloTICK
 
 ## Description 
-MENANTI (Manajemen Pelayanan TI) is a management ticketing system that offers bunch of features. You can open new tickets, assign people, edit tickets, etc. It is built with CodeIgniter 4 framework. 
+HaloTICK is a management ticketing system that offers bunch of features. You can open new tickets, assign people, edit tickets, users, etc. It is built with CodeIgniter 4 framework and AdminLTE Bootstrap Template. For more information, please visits https://codeigniter.com/ and https://adminlte.io/
 
 ## Features
 1. Open ticket 
 2. Tickets list
 3. Multi user (admin and client)
 4. Email (send email on edit or open new ticket)
-5. Damage reporting recapitulation table 
+5. Damage reporting recapitulation table (coming soon)
 6. Recapitulation based on people (coming soon)
 
-## Server Requirements (CodeIgniter 4)
+## Server Requirements (From CodeIgniter 4)
 
 PHP version 7.3 or higher is required, with the following extensions installed:
 
@@ -24,3 +24,15 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - [mbstring](http://php.net/manual/en/mbstring.installation.php)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
 - xml (enabled by default - don't turn it off)
+
+## User Manual 
+
+### Setting Up Database
+1. Upload the database file 'tiketdb' into your phpmyadmin or mysql. 
+2. Open config > Database.php to change the database information as you want.
+
+### Setting Up Email
+1. Open app > config > email.php and change the SMTP user into your email. I use SMTP to send email from gmail. The setting may be different for another Host. 
+2. Open app > controller > Tiket.php and change the email's setting there. The email is sent when someone create a new ticket or edit ticket by adding a comment. 
+
+
