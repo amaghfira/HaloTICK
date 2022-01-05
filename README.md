@@ -4,12 +4,13 @@
 HaloTICK is a management ticketing system that offers bunch of features. You can open new tickets, assign people, edit tickets, users, etc. It is built with CodeIgniter 4 framework and AdminLTE Bootstrap Template. For more information, please visits https://codeigniter.com/ and https://adminlte.io/
 
 ## Features
-1. Open ticket 
-2. Tickets list
-3. Multi user (admin and client)
-4. Email (send email on edit or open new ticket)
-5. Damage reporting recapitulation table (coming soon)
-6. Recapitulation based on people (coming soon)
+1. Dashboard
+2. Create ticket 
+3. Tickets list
+4. Multi user (admin and client)
+5. Email (send email on edit or open new ticket)
+6. Frequently Asked Question (FAQ)
+7. Website Management (this menu is only for admin)
 
 ## Server Requirements (From CodeIgniter 4)
 
