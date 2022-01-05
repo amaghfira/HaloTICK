@@ -57,6 +57,16 @@ $routes->group('', ['filter' => 'authFilter'], function($routes) {
     $routes->get('/priority/delete', 'Priority::delete');
     $routes->get('/priority/add', 'Priority::add');
 
+    $routes->get('/users','Users::index');
+    $routes->get('/users/edit', 'Users::edit');
+    $routes->get('/users/delete', 'Users::delete');
+    $routes->get('/users/add', 'Users::add');
+
+    $routes->get('/levels','Levels::index');
+    $routes->get('/levels/edit', 'Levels::edit');
+    $routes->get('/levels/delete', 'Levels::delete');
+    $routes->get('/levels/add', 'Levels::add');
+
     $routes->get('/contact','Contact::index');
     $routes->get('/faq','Faq::index');
 });

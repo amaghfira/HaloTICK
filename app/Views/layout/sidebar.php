@@ -61,7 +61,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/charts/chartjs.html" class="nav-link">
+                            <a href="<?= base_url(); ?>/users" class="nav-link">
                                 <i class="fa fa-users nav-icon"></i>
                                 <p>Users</p>
                             </a>
@@ -82,6 +82,12 @@
                             <a href="<?= base_url(); ?>/priority" class="nav-link">
                                 <i class="fas fa-tasks nav-icon"></i>
                                 <p>Priorities</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= base_url(); ?>/levels" class="nav-link">
+                                <i class="fas fa-id-card-alt nav-icon"></i>
+                                <p>User's Role</p>
                             </a>
                         </li>
                     </ul>
