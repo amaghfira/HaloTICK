@@ -36,4 +36,15 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 1. Open app > config > email.php and change the SMTP user into your email. I use SMTP to send email from gmail. The setting may be different for another Host. 
 2. Open app > controller > Tiket.php and change the email's setting there. The email is sent when someone create a new ticket or edit ticket by adding a comment. 
 
+## Demo
+Visit https://halotickdemo.000webhostapp.com/ 
+
+Login as admin
+Username : admin
+Password : admin123
+
+Login as client
+Username : client
+Password : 123456
+
 
