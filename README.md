@@ -40,11 +40,11 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 Visit https://halotickdemo.000webhostapp.com/ 
 
 Login as admin
-Username : admin
-Password : admin123
+* Username : admin
+* Password : admin123
 
 Login as client
-Username : client
-Password : 123456
+* Username : client
+* Password : 123456
 
 
