@@ -31,6 +31,7 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 ### Setting Up Database
 1. Upload the database file 'tiketdb' into your phpmyadmin or mysql. 
 2. Open config > Database.php to change the database information as you want.
+3. Open .env file and change the database information there. 
 
 ### Setting Up Email
 1. Open app > config > email.php and change the SMTP user into your email. I use SMTP to send email from gmail. The setting may be different for another Host. 
